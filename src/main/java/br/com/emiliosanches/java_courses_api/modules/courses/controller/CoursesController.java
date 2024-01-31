@@ -1,4 +1,4 @@
-package br.com.emiliosanches.java_courses_api.modules.courses;
+package br.com.emiliosanches.java_courses_api.modules.courses.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
