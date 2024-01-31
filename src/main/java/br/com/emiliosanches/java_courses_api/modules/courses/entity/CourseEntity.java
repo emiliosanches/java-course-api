@@ -3,9 +3,11 @@ package br.com.emiliosanches.java_courses_api.modules.courses.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Data
+@Entity(name = "courses")
 public class CourseEntity {
   private UUID id;
   private String name;
