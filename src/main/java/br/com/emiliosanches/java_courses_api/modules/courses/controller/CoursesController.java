@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.emiliosanches.java_courses_api.modules.courses.dto.UpdateCourseDTO;
 import br.com.emiliosanches.java_courses_api.modules.courses.entity.CourseEntity;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.CreateCourseUseCase;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.GetCourseByIdUseCase;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.ListCoursesUseCase;
+import br.com.emiliosanches.java_courses_api.modules.courses.useCases.UpdateCourseUseCase;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,8 @@ public class CoursesController {
   private GetCourseByIdUseCase getCourseByIdUseCase;
   @Autowired
   private CreateCourseUseCase createCourseUseCase;
+  @Autowired
+  private UpdateCourseUseCase updateCourseUseCase;
 
   @GetMapping
   public List<CourseEntity> listCourses() {
@@ -46,8 +50,8 @@ public class CoursesController {
   }
 
   @PutMapping("{id}")
-  public String updateCourse(@PathVariable String id) {
-    return "This method updates the course " + id;
+  public CourseEntity updateCourse(@PathVariable UUID id, @RequestBody UpdateCourseDTO updateCourseDTO) {
+    return this.updateCourseUseCase.execute(id, updateCourseDTO);
   }
 
   @DeleteMapping("{id}")
