@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.emiliosanches.java_courses_api.modules.courses.dto.UpdateCourseDTO;
 import br.com.emiliosanches.java_courses_api.modules.courses.entity.CourseEntity;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.CreateCourseUseCase;
+import br.com.emiliosanches.java_courses_api.modules.courses.useCases.DeleteCourseUseCase;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.GetCourseByIdUseCase;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.ListCoursesUseCase;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.UpdateCourseUseCase;
@@ -33,6 +34,8 @@ public class CoursesController {
   private CreateCourseUseCase createCourseUseCase;
   @Autowired
   private UpdateCourseUseCase updateCourseUseCase;
+  @Autowired
+  private DeleteCourseUseCase deleteCourseUseCase;
 
   @GetMapping
   public List<CourseEntity> listCourses() {
@@ -55,7 +58,7 @@ public class CoursesController {
   }
 
   @DeleteMapping("{id}")
-  public String deleteCourse(@PathVariable String id) {
-    return "This method deletes the course " + id;
+  public void deleteCourse(@PathVariable UUID id) {
+    this.deleteCourseUseCase.execute(id);
   }
 }
