@@ -3,6 +3,7 @@ package br.com.emiliosanches.java_courses_api.modules.courses.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,14 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.emiliosanches.java_courses_api.modules.courses.entity.CourseEntity;
+import br.com.emiliosanches.java_courses_api.modules.courses.useCases.CreateCourseUseCase;
 import br.com.emiliosanches.java_courses_api.modules.courses.useCases.ListCoursesUseCase;
 
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("courses")
 public class CoursesController {
-  @Autowired private ListCoursesUseCase listCoursesUseCase;
+  @Autowired
+  private ListCoursesUseCase listCoursesUseCase;
+  @Autowired
+  private CreateCourseUseCase createCourseUseCase;
 
   @GetMapping
   public List<CourseEntity> listCourses() {
@@ -31,8 +37,8 @@ public class CoursesController {
   }
 
   @PostMapping
-  public String createCourse() {
-    return "This method creates a course";
+  public CourseEntity createCourse(@Validated @RequestBody CourseEntity courseEntity) {
+    return this.createCourseUseCase.execute(courseEntity);
   }
 
   @PutMapping("{id}")
